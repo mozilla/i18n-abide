@@ -4,8 +4,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-require('./lib/test_env.js');
-
 const assert = require('assert'),
       vows = require('vows'),
       i18n = require('../lib/i18n');

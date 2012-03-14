@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git://github.com/mozilla/i18n-abide.git"
   },
+  "bugs": {
+    "url": "http://github.com/mozilla/i18n-abide/issues"
+  },
   "main": "lib/i18n.js",
   "engines": {
     "node": "~0.6.6"
@@ -17,5 +20,8 @@
     },
   "devDependencies": {
     "vows": "0.5.13"
+  },
+  "scripts": {
+    "test": "NODE_PATH=lib node_modules/.bin/vows tests/*-tests.js"
   }
 }
