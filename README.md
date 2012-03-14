@@ -7,4 +7,8 @@ This module **abides by the Mozilla L10n way of doing things**.
 
 **The module abides**.
 
+# Status
+
+This module is under development, currently being extracted from [BrowserID](https://github.com/mozilla/browserid).
+
 See docs/USAGE.md for details.

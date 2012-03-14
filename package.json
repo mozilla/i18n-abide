@@ -1,0 +1,21 @@
+{
+  "author": "Austin King <shout@ozten.com> (http://ozten.com)",
+  "name": "i18n-abide",
+  "description": "Node.js express connect module for i18n and l10n support",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mozilla/i18n-abide",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mozilla/i18n-abide.git"
+  },
+  "main": "lib/i18n.js",
+  "engines": {
+    "node": "~0.6.6"
+  },
+  "dependencies": {
+    "node-gettext": "0.1.2"
+    },
+  "devDependencies": {
+    "vows": "0.5.13"
+  }
+}
