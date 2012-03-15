@@ -72,7 +72,6 @@ Example messages.pot:
     "Content-Type: text/plain; charset=UTF-8\n"
     "Content-Transfer-Encoding: 8bit\n"
 
-
     #: server/routes.js:81
     msgid "Hey, careful, man, there's a beverage here!"
     msgstr ""
@@ -91,7 +90,7 @@ Example messages.pot:
 
 If you look at ``locale/en_US/LC_MESSAGES/messages.po``, it will be very similar to your template messages.pot file.
 
-THis creates ``.po`` files which you can give to localizers to translate your copy.
+This creates ``.po`` files which you can give to localizers to translate your copy.
 
 Let's put the i18n-abide tools in our path:
 
@@ -104,7 +103,7 @@ And run a string merge:
 A merge takes strings from our ``.pot`` files and pushes them into our ``.po`` files. If you have ``podebug`` installed, it also automatically translates ``db-LB``.
 
 ``db-LB`` is a special
-**debug** locale. To trigger it, set your Browser or Operating system language to Italian (Switzerland) which is ``it-CH``.  This fake locale ``db-LB`` will be triggered, it is David Bowie speak for the region of Labrynth. Oh, hell ya a Dude / Bowie Mashup.
+**debug** locale. To trigger it, set your Browser or Operating System language to Italian (Switzerland) which is ``it-CH``.  This fake locale ``db-LB`` will be triggered, it is David Bowie speak for the region of Labrynth. Oh, hell ya a Dude / Bowie Mashup.
 That just happened.
 
 Example: ``locale/db_LB/LC_MESSAGES/messages.po``
