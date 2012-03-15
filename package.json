@@ -1,7 +1,7 @@
 {
   "author": "Austin King <shout@ozten.com> (http://ozten.com)",
   "name": "i18n-abide",
-  "description": "Node.js express connect module for i18n and l10n support",
+  "description": "Express/connect module for Node i18n and l10n support",
   "version": "0.0.0",
   "homepage": "https://github.com/mozilla/i18n-abide",
   "repository": {
@@ -23,5 +23,10 @@
   },
   "scripts": {
     "test": "NODE_PATH=lib node_modules/.bin/vows tests/*-tests.js"
-  }
+  },
+  "licenses": [ {
+    "type": "MPL 2.0",
+    "url": "http://www.mozilla.org/MPL/2.0/"
+  } ],
+  "keywords": ["express", "connect", "l10n", "i18n", "gettext"]
 }
