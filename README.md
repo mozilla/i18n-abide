@@ -30,7 +30,7 @@ In your app where you setup express or connect:
       locale_directory: 'locale'
     }));
 
-This block setup the middleware and views with gettext support. We declare
+This block sets up the middleware and views with gettext support. We declare
 support for English, German, Spanish, and two debug locales (more on this later).
 
 In your routes, you can use the gettext function in ``.js`` files.
@@ -39,9 +39,19 @@ In your routes, you can use the gettext function in ``.js`` files.
       resp.render('home', {title: req.gettext("Hey, careful, man, there's a beverage here!")});
     };
 
+In your layout files, you can add
+
+    <!DOCTYPE html>
+    <html lang="<%= lang %>" dir="<%= lang_dir %>">
+      <head>
+        <meta charset="utf-8">
+        ...
+
 In your templates files, you can use the gettext function in ``.ejs`` files:
 
     <p><%= gettext("This will not stand, ya know, this aggression will not stand, man.") %></p>
+
+i18n-abide also provides a ``format`` function for string interpolation.
 
 These are both server side translations with ``node-gettext``. If you also want to do client-side translations,
 i18n-abide provides ``lib/gettext.js`` and you can do the same in ``.js`` and ``.ejs`` files.
@@ -71,10 +81,6 @@ Example messages.pot:
     msgid "This will not stand, ya know, this aggression will not stand, man."
     msgstr ""
 
-Let's put the i18n-abide tools in our path:
-
-    $ export PATH=$PATH:node_modules/i18n-abide/bin
-
     $ for l in en_US de es db_LB; do
     for db_LB; do
       mkdir -p locale/${l}/LC_MESSAGES/
@@ -85,9 +91,19 @@ Let's put the i18n-abide tools in our path:
 
 If you look at ``locale/en_US/LC_MESSAGES/messages.po``, it will be very similar to your template messages.pot file.
 
-    $ compile-mo.sh locale/
+THis creates ``.po`` files which you can give to localizers to translate your copy.
 
-THis creates ``.po`` files which you can give to localizers to translate your copy. ``db-LB`` is a special
+Let's put the i18n-abide tools in our path:
+
+    $ export PATH=$PATH:node_modules/i18n-abide/bin
+
+And run a string merge:
+
+    $ merge-po.sh ./locale
+
+A merge takes strings from our ``.pot`` files and pushes them into our ``.po`` files. If you have ``podebug`` installed, it also automatically translates ``db-LB``.
+
+``db-LB`` is a special
 **debug** locale. To trigger it, set your Browser or Operating system language to Italian (Switzerland) which is ``it-CH``.  This fake locale ``db-LB`` will be triggered, it is David Bowie speak for the region of Labrynth. Oh, hell ya a Dude / Bowie Mashup.
 That just happened.
 
@@ -103,6 +119,10 @@ Example: ``locale/db_LB/LC_MESSAGES/messages.po``
     #: server/views/404.ejs:5
     msgid "This will not stand, ya know, this aggression will not stand, man."
     msgstr "‮⊥ɥıs ʍıʅʅ uoʇ sʇɐup´ ʎɐ ʞuoʍ´ ʇɥıs ɐƃƃɹǝssıou ʍıʅʅ uoʇ sʇɐup´ ɯɐu·"
+
+And we will compile ``.po`` files into ``.mo`` files.
+
+    $ compile-mo.sh locale/
 
 Now, start up your Node server and visit a page you've wrapped strings in Gettext...
 
