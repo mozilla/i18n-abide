@@ -17,7 +17,7 @@ You should install Gnu gettext to get msginit, xgettext, and other tools.
 
 # Usage
 
-    npm install i18n-abide
+    npm install git://github.com/mozilla/i18n-abide.git
 
 In your app where you setup express or connect:
 
