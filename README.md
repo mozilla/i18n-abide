@@ -98,12 +98,12 @@ Let's put the i18n-abide tools in our path:
 
 And run a string merge:
 
-    $ merge-po.sh ./locale
+    $ merge_po.sh ./locale
 
 A merge takes strings from our ``.pot`` files and pushes them into our ``.po`` files. If you have ``podebug`` installed, it also automatically translates ``db-LB``.
 
 ``db-LB`` is a special
-**debug** locale. To trigger it, set your Browser or Operating System language to Italian (Switzerland) which is ``it-CH``.  This fake locale ``db-LB`` will be triggered, it is David Bowie speak for the region of Labrynth. Oh, hell ya a Dude / Bowie Mashup.
+**debug** locale. To trigger it, set your Browser or Operating System language to Italian (Switzerland) which is ``it-CH``.  This fake locale ``db-LB`` will be triggered, it is David Bowie speak for the region of Labyrinth. Oh, hell ya a Dude / Bowie Mashup.
 That just happened.
 
 Example: ``locale/db_LB/LC_MESSAGES/messages.po``
