@@ -59,10 +59,10 @@ i18n-abide provides ``lib/gettext.js`` and you can do the same in ``.js`` and ``
 ## Setup Gettext
 
     $ mkdir -p locale/templates/LC_MESSAGES
-    # Get a local copy of extract-po.sh, and edit to to match your source code layout
-    $ cp node_modules/i18n-abide/bin/extract-po.sh bin/
-    $ emacs bin/extract-po.sh (or vim or whatever)
-    $ ./bin/extract-po.sh
+    # Get a local copy of extract_po.sh, and edit to to match your source code layout
+    $ cp node_modules/i18n-abide/bin/extract_po.sh bin/
+    $ emacs bin/extract_po.sh (or vim or whatever)
+    $ ./bin/extract_po.sh
 
 If you look in ``locale/templates/LC_MESSAGES/messages.pot`` you will see your strings have been extracted.
 Edit this file and make sure ``charset`` is set to ``UTF-8``.
@@ -81,11 +81,10 @@ Example messages.pot:
     msgstr ""
 
     $ for l in en_US de es db_LB; do
-    for db_LB; do
-      mkdir -p locale/${l}/LC_MESSAGES/
-      msginit --input=./locale/templates/LC_MESSAGES/messages.pot \
-            --output-file=./locale/${l}/LC_MESSAGES/messages.po \
-            -l ${l}
+        mkdir -p locale/${l}/LC_MESSAGES/
+        msginit --input=./locale/templates/LC_MESSAGES/messages.pot \
+                --output-file=./locale/${l}/LC_MESSAGES/messages.po \
+                -l ${l}
       done
 
 If you look at ``locale/en_US/LC_MESSAGES/messages.po``, it will be very similar to your template messages.pot file.
@@ -121,7 +120,7 @@ Example: ``locale/db_LB/LC_MESSAGES/messages.po``
 
 And we will compile ``.po`` files into ``.mo`` files.
 
-    $ compile-mo.sh locale/
+    $ compile_mo.sh locale/
 
 Now, start up your Node server and visit a page you've wrapped strings in Gettext...
 
