@@ -80,6 +80,8 @@ Example messages.pot:
     msgid "This will not stand, ya know, this aggression will not stand, man."
     msgstr ""
 
+To create ``po`` files in bulk, do:
+
     $ for l in en_US de es db_LB; do
         mkdir -p locale/${l}/LC_MESSAGES/
         msginit --input=./locale/templates/LC_MESSAGES/messages.pot \
