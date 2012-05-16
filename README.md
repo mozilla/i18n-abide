@@ -103,6 +103,8 @@ And run a string merge:
 
 A merge takes strings from our ``.pot`` files and pushes them into our ``.po`` files. If you have ``podebug`` installed, it also automatically translates ``db-LB``.
 
+# Debugging and Testing
+
 ``db-LB`` is a special
 **debug** locale. To trigger it, set your Browser or Operating System language to Italian (Switzerland) which is ``it-CH``.  This fake locale ``db-LB`` will be triggered, it is David Bowie speak for the region of Labyrinth. Oh, hell ya a Dude / Bowie Mashup.
 That just happened.
