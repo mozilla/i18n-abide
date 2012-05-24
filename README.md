@@ -17,14 +17,14 @@ You should install Gnu gettext to get msginit, xgettext, and other tools.
 
 # Usage
 
-    npm install git://github.com/mozilla/i18n-abide.git
+    npm install i18n-abide
 
 In your app where you setup express or connect:
 
     var i18n = require('i18n-abide');
 
     app.use(i18n.abide({
-      supported_languages: ['en-US', 'de', 'es', 'db-LB', 'it-CH']],
+      supported_languages: ['en-US', 'de', 'es', 'db-LB', 'it-CH'],
       default_lang: 'en-US',
       debug_lang: 'it-CH',
       locale_directory: 'locale'
