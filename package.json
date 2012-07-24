@@ -16,7 +16,7 @@
     "node": ">= 0.6.2"
   },
   "dependencies": {
-    "node-gettext": "0.1.2"
+    "node-gettext": "git://github.com/ozten/node-gettext.git"
     },
   "devDependencies": {
     "vows": "0.5.13"
