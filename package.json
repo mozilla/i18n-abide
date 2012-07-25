@@ -2,7 +2,7 @@
   "author": "Austin King <shout@ozten.com> (http://ozten.com)",
   "name": "i18n-abide",
   "description": "Express/connect module for Node i18n and l10n support",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "https://github.com/mozilla/i18n-abide",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "node": ">= 0.6.2"
   },
   "dependencies": {
-    "node-gettext": "git://github.com/ozten/node-gettext.git"
+    "node-gettext": "0.2.7"
     },
   "devDependencies": {
     "vows": "0.5.13"
