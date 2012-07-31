@@ -59,13 +59,14 @@ i18n-abide provides ``lib/gettext.js`` and you can do the same in ``.js`` and ``
 ## Setup Gettext
 
     $ mkdir -p locale/templates/LC_MESSAGES
-    # Get a local copy of extract-po.sh, and edit to to match your source code layout
-    $ cp node_modules/i18n-abide/bin/extract-po.sh bin/
-    $ emacs bin/extract-po.sh (or vim or whatever)
-    $ ./bin/extract-po.sh
+    $ ./node_modules/.bin/extract-pot --locale locale ./server
 
 If you look in ``locale/templates/LC_MESSAGES/messages.pot`` you will see your strings have been extracted.
 Edit this file and make sure ``charset`` is set to ``UTF-8``.
+
+If there are certain files or directories you want to exclude, use `--exclude` one or more times. Example:
+
+    $ extract-pot --locale locale ./server --exclude tests --exclude examples
 
 Example messages.pot:
 

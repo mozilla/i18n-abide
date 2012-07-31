@@ -1,0 +1,85 @@
+#!/usr/bin/env node
+var async = require('async'),
+    exec = require('child_process').exec,
+    path = require('path'),
+    util = require('util');
+
+// ./scripts/extract-pot --locale locale server static
+// Given a locale directory to write out pot files and
+// 1 or more directories to find sources in, run
+// .js and .ejs files through jsxgettext
+
+var argv = require('optimist').demand(['l'])
+   .usage('Extract gettext strings from codebase. Usage: $0 --locale=DIRECTORY INPUT_DIR [INPUT_DIR]*')
+   .alias('h', 'help')
+   .describe('h', 'display this usage message')
+   .alias('l', 'locale')
+   .describe('l', 'locale directory where pot and po files will be written')
+   //.alias('e', 'exclude')
+   .describe('exclude', 'directory or filename pattern to exclude from jsxgettext\n\t\tmay be used multiple times')
+   .check(function (argv) {
+    // We have atleast one directory of source code to process
+    return argv._.length >= 1;
+   })
+   .argv;
+
+var localeDir = path.resolve(process.cwd(), argv.locale);
+
+var sourceDirs = [];
+
+argv._.forEach(function (dir) {
+  sourceDirs.push(path.resolve(process.cwd(), dir));
+});
+
+// top of repo is our current working directory
+process.chdir(path.dirname(__dirname));
+
+var jsCmd = './node_modules/.bin/jsxgettext %s --keyword=_ -L JS ' +
+'--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
+'`find %s -name \'*.js\' | grep -v node_modules | grep -v .git';
+
+var ejsCmd = './node_modules/.bin/jsxgettext %s --keyword=_ -L EJS ' +
+'--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
+'`find %s -name \'*.ejs\' | grep -v node_modules | grep -v .git';
+
+if (argv.exclude) {
+  var excludes = argv.exclude;
+  if ('string' === typeof argv.exclude) {
+    excludes = [argv.exclude];
+  }
+  excludes.forEach(function (exclude) {
+    jsCmd += ' | grep -v ' + exclude;
+    ejsCmd += ' | grep -v ' + exclude;
+  });
+}
+// Close out `find ...` backtick
+jsCmd += '`';
+ejsCmd += '`';
+
+// Create a new .pot file
+var dashJ = '';
+
+// Run commands
+async.forEachSeries(sourceDirs, function (dir) {
+  exec(util.format(jsCmd, dashJ, localeDir, dir), function (err, stdout, stderr) {
+    // Join existing pot file
+    dashJ = '--join-existing=true';
+
+    if (err) {
+      console.error(err);
+    } else {
+      exec(util.format(ejsCmd, dashJ, localeDir, dir), function (err, stdout, stderr) {
+        if (err) {
+          console.log(util.format(ejsCmd, dashJ, localeDir, dir));
+          console.error(err);
+        }
+
+      });
+    }
+  });
+}, function (err) {
+  console.log('===========');
+  if (err) {
+    console.error(err);
+  }
+});
