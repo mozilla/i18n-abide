@@ -31,14 +31,14 @@ The request object and the response's template context have the following variab
 
 ## Tools
 
-``scripts/every_locale.js`` - will output a list of every locale under the locale directory. This can
+``scripts/every-locale.js`` - will output a list of every locale under the locale directory. This can
 be copied into ``config/l10n-all.json``.
 
-``scripts/check_l10n_config.js`` - Run with the ``CONFIG_FILES`` environment variable set to the one json
+``scripts/check-l10n-config.js`` - Run with the ``CONFIG_FILES`` environment variable set to the one json
 config file which you'll like to validate. Examples:
 
-    CONFIG_FILES=/home/ozten/Projects/browserid/config/l10n-prod.json node ./scripts/check_l10n_config.js
-    CONFIG_FILES=/home/ozten/Projects/browserid/config/l10n-all.json node ./scripts/check_l10n_config.js
+    CONFIG_FILES=/home/ozten/Projects/browserid/config/l10n-prod.json node ./scripts/check-l10n-config.js
+    CONFIG_FILES=/home/ozten/Projects/browserid/config/l10n-all.json node ./scripts/check-l10n-config.js
 
 ## Debugging
 

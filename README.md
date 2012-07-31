@@ -59,10 +59,10 @@ i18n-abide provides ``lib/gettext.js`` and you can do the same in ``.js`` and ``
 ## Setup Gettext
 
     $ mkdir -p locale/templates/LC_MESSAGES
-    # Get a local copy of extract_po.sh, and edit to to match your source code layout
-    $ cp node_modules/i18n-abide/bin/extract_po.sh bin/
-    $ emacs bin/extract_po.sh (or vim or whatever)
-    $ ./bin/extract_po.sh
+    # Get a local copy of extract-po.sh, and edit to to match your source code layout
+    $ cp node_modules/i18n-abide/bin/extract-po.sh bin/
+    $ emacs bin/extract-po.sh (or vim or whatever)
+    $ ./bin/extract-po.sh
 
 If you look in ``locale/templates/LC_MESSAGES/messages.pot`` you will see your strings have been extracted.
 Edit this file and make sure ``charset`` is set to ``UTF-8``.

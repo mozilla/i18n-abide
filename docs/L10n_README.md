@@ -1,11 +1,11 @@
 These po files are scripts are for the BrowserID project and work along
 with scripts from the browserid github repo under the scripts directory.
 
-    scripts/extract_po.sh - Creates template POT file
+    scripts/extract-po.sh - Creates template POT file
 
 This script examines EJS and JavaScript files for strings, extracts them, and puts them into POT files.
 
-    scripts/merge_po.sh - Takes new or changed strings and updates PO files
+    scripts/merge-po.sh - Takes new or changed strings and updates PO files
 
 Additionally, if possible, generates a db_LB language translation.
 
@@ -36,8 +36,8 @@ You should now have a complete environment for working with strings.
 
     git fetch upstream
     git checkout train-YYYY.MM.DD
-    ./scripts/extract_po.sh
-    ./scripts/merge_po.sh locale/
+    ./scripts/extract-po.sh
+    ./scripts/merge-po.sh locale/
 
     ./locale/compile-json.sh locale/ resources/static/i18n/
 
