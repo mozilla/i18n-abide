@@ -210,7 +210,8 @@ var parse_po_dequote = function(str) {
   if (match = str.match(/^"(.*)"/)) {
     str = match[1];
   }
-  str = str.replace(/\\"/g, '"');
+  str = str.replace(/\\"/g, '"')
+           .replace(/\\n/g, '\n');
   return str;
 };
 
