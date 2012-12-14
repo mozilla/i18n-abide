@@ -59,25 +59,25 @@ i18n-abide provides ``lib/gettext.js`` and you can do the same in ``.js`` and ``
 ## Setup Gettext
 
     $ mkdir -p locale/templates/LC_MESSAGES
-    $ ./node_modules/.bin/extract-pot --locale locale ./server
+    $ ./node_modules/.bin/extract-pot --locale locale .
 
 If you look in ``locale/templates/LC_MESSAGES/messages.pot`` you will see your strings have been extracted.
 Edit this file and make sure ``charset`` is set to ``UTF-8``.
 
 If there are certain files or directories you want to exclude, use `--exclude` one or more times. Example:
 
-    $ extract-pot --locale locale ./server --exclude tests --exclude examples
+    $ extract-pot --locale locale . --exclude tests --exclude examples
 
 Example messages.pot:
 
     "Content-Type: text/plain; charset=UTF-8\n"
     "Content-Transfer-Encoding: 8bit\n"
 
-    #: server/routes.js:81
+    #: ./routes.js:81
     msgid "Hey, careful, man, there's a beverage here!"
     msgstr ""
 
-    #: server/views/404.ejs:5
+    #: views/404.ejs:5
     msgid "This will not stand, ya know, this aggression will not stand, man."
     msgstr ""
 
@@ -115,11 +115,11 @@ Example: ``locale/db_LB/LC_MESSAGES/messages.po``
     "Content-Type: text/plain; charset=UTF-8\n"
     "Content-Transfer-Encoding: 8bit\n"
 
-    #: server/routes.js:81
+    #: routes.js:81
     msgid "Hey, careful, man, there's a beverage here!"
     msgstr "‮Hǝʎ´ ɔɐɹǝɟnʅ´ ɯɐu´ ʇɥǝɹǝ,s ɐ qǝʌǝɹɐƃǝ ɥǝɹǝ¡"
 
-    #: server/views/404.ejs:5
+    #: views/404.ejs:5
     msgid "This will not stand, ya know, this aggression will not stand, man."
     msgstr "‮⊥ɥıs ʍıʅʅ uoʇ sʇɐup´ ʎɐ ʞuoʍ´ ʇɥıs ɐƃƃɹǝssıou ʍıʅʅ uoʇ sʇɐup´ ɯɐu·"
 

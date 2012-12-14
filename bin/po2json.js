@@ -89,7 +89,7 @@ var parse_po = function(data) {
       }
 
     // comments
-    } else if (/^(#[^~]|#$)/.test(lines[i])) {
+    } else if (/^(#|#$)/.test(lines[i])) {
       continue;
 
     // msgctxt

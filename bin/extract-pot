@@ -34,11 +34,16 @@ argv._.forEach(function (dir) {
 // top of repo is our current working directory
 process.chdir(path.dirname(__dirname));
 
-var jsCmd = './node_modules/.bin/jsxgettext %s --keyword=_ -L JS ' +
+console.log('My Path is ', __dirname);
+var jsxGettextPath = path.join(__dirname, '../node_modules/.bin/jsxgettext');
+
+console.log(jsxGettextPath);
+
+var jsCmd = jsxGettextPath + ' %s --keyword=_ -L JS ' +
 '--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
 '`find %s -name \'*.js\' | grep -v node_modules | grep -v .git';
 
-var ejsCmd = './node_modules/.bin/jsxgettext %s --keyword=_ -L EJS ' +
+var ejsCmd = jsxGettextPath + ' %s --keyword=_ -L EJS ' +
 '--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
 '`find %s -name \'*.ejs\' | grep -v node_modules | grep -v .git';
 
@@ -63,22 +68,22 @@ var dashJ = '';
 async.forEachSeries(sourceDirs, function (dir) {
   exec(util.format(jsCmd, dashJ, localeDir, dir), function (err, stdout, stderr) {
     // Join existing pot file
-    dashJ = '--join-existing=true';
+    dashJ = ' --join-existing=true ';
 
-    if (err) {
-      console.error(err);
+    // We expect an error if no gettext strings are used in client side code
+    if (err && stdout.indexOf('input argument is required') === -1) {
+      console.error(stdout);
+      console.error(stderr);
     } else {
       exec(util.format(ejsCmd, dashJ, localeDir, dir), function (err, stdout, stderr) {
         if (err) {
-          console.log(util.format(ejsCmd, dashJ, localeDir, dir));
-          console.error(err);
+          console.error(stdout);
+          console.error(stderr);
         }
-
       });
     }
   });
 }, function (err) {
-  console.log('===========');
   if (err) {
     console.error(err);
   }
