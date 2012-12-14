@@ -6,7 +6,7 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "2.5.8",
+    "express": "3.0.4",
     "ejs": "*",
     "i18n-abide": ">= 0.0.7"
   }

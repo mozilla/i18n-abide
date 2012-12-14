@@ -1,0 +1,1 @@
+This example demonstrates how to use i18n-abide with Express 2.
