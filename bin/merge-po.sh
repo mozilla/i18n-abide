@@ -26,8 +26,8 @@ if hash podebug >/dev/null; then
     for catalog in messages; do
 
         echo "Translating ${catalog}.po"
-        podebug --rewrite=flipped -i locale/templates/LC_MESSAGES/${catalog}.pot\
-               -o locale/db_LB/LC_MESSAGES/${catalog}.po
+        podebug --rewrite=flipped -i $1/templates/LC_MESSAGES/${catalog}.pot\
+               -o $1/db_LB/LC_MESSAGES/${catalog}.po
     done
 else
   echo 'Skipping db-LB, install translate-toolkit if you want to have that up-to-date.'
