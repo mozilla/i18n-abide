@@ -21,7 +21,7 @@ config.get('supported_languages').forEach(function (lang, i) {
       locale, " and back again into language=", i18n.languageFrom(locale));
     error = 1;
   }
-  path.exists(path.join(__dirname, '..', 'locale', locale, 'LC_MESSAGES', 'messages.po'), function (m_exists) {
+  fs.exists(path.join(__dirname, '..', 'locale', locale, 'LC_MESSAGES', 'messages.po'), function (m_exists) {
     if (! m_exists) {
       console.error("Language ", lang, " doesn't exist. Expected",
         path.join(__dirname, '..', 'locale', locale, 'LC_MESSAGES', 'messages.po'));
