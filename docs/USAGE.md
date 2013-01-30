@@ -40,6 +40,10 @@ config file which you'll like to validate. Examples:
     CONFIG_FILES=/home/ozten/Projects/browserid/config/l10n-prod.json node ./scripts/check-l10n-config.js
     CONFIG_FILES=/home/ozten/Projects/browserid/config/l10n-all.json node ./scripts/check-l10n-config.js
 
+## Contributions
+
+``scripts/check-po.sh`` - Prints statistics on various .po files, assumes `locale` directory.
+
 ## Debugging
 
 If code is evaluated in node.js (server-side) then node-gettext is providing the string
