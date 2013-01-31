@@ -11,7 +11,7 @@ Any copy, label, or error message that will be shown to users **should** be wrap
 
 These strings must be evaluated in the scope of a request, so we know which locale the user has.
 
-In JavaScript or EJS templates use `gettext` or `ngettext`. If you need to do string interpolation, use the
+In JavaScript or EJS templates use `gettext`. If you need to do string interpolation, use the
 [format](../lib/i18n.js) function, which is kind of like node.js' util.format, except crappier.
 
 Using `_` is more idiomatic, but conflicts with `underscore.js` on the client side JS and EJS files.
@@ -26,7 +26,7 @@ The request object and the response's template context have the following variab
  * lang - User's preferred language
  * lang_dir - rtl or ltr (BIDI language support)
  * locale - OS level locale code
- * gettext, ngettext - Gettext functions
+ * gettext - Gettext function
  * format - for string interpolation
 
 ## Tools
@@ -46,15 +46,19 @@ config file which you'll like to validate. Examples:
 
 ## Debugging
 
-If code is evaluated in node.js (server-side) then node-gettext is providing the string
-translation. Strings are from the messages.mo files under the locale directory. MO files
-are binary, compiled from the PO files.
+If code is evaluated in node.js (server-side) then translation is provided from the
+`i18n/{locale}/messages.json` file which contains the translation. These JSON files come
+from PO files.
 
-If code is evaluated on the client-side, then resources/static/shared/gettext.js is in
-the house... strings are from resources/static/i18n JSON files.
+If code is evaluated on the client-side, then `static/gettext.js` is in
+the house... strings are `i18n/{locale}/client.json` files.
 
 If code is evaluated in your head, then clearly we are post-singularity. Why are you
 still using gettext?
+
+You can change `i18n` in the above to examples by setting the `translation_directory` in your
+options to i18n-abide. If you do server side and client side strings, it is recommended that you
+put your translation_directory under a web accessible directory like `static`.
 
 Use the eo locale for development and debugging. It is auto-translated with:
 for catalog in messages client; do

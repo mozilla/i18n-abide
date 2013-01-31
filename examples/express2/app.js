@@ -18,7 +18,7 @@ app.configure(function(){
     supported_languages: ['en-US', 'de', 'es', 'db-LB', 'it-CH'],
     default_lang: 'en-US',
     debug_lang: 'it-CH',
-    locale_directory: 'locale'
+    translation_directory: 'i18n'
   }));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -37,7 +37,6 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
-
-app.listen(3001, function(){
+app.listen(process.env.PORT || 3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

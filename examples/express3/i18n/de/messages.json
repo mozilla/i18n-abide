@@ -1,0 +1,12 @@
+;var json_locale_data = {
+   "messages": {
+      "": {
+         "Project-Id-Version": " express 3\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2012-06-24 09:50+0200\nPO-Revision-Date: 2012-06-24 09:50+0200\nLast-Translator: Automatically generated\nLanguage-Team: none\nLanguage: de\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
+      },
+      "Hello, world!": [
+         null,
+         ""
+      ]
+   }
+}
+;

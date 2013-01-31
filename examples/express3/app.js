@@ -13,14 +13,14 @@ var express = require('express'),
 var app = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 3001);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(i18n.abide({
     supported_languages: ['en-US', 'de', 'es', 'db-LB', 'it-CH'],
     default_lang: 'en-US',
     debug_lang: 'it-CH',
-    locale_directory: 'locale'
+    translation_directory: 'i18n'
   }));
   app.use(express.favicon());
   app.use(express.logger('dev'));

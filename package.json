@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "async": "0.1.22",
+    "gobbledygook": "0.0.3",
     "jsxgettext": "0.0.4",
-    "node-gettext": "0.2.8",
     "optimist": "0.3.4"
     },
   "devDependencies": {

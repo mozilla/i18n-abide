@@ -27,7 +27,7 @@ In your app where you setup express or connect:
       supported_languages: ['en-US', 'de', 'es', 'db-LB', 'it-CH'],
       default_lang: 'en-US',
       debug_lang: 'it-CH',
-      locale_directory: 'locale'
+      translation_directory: 'i18n'
     }));
 
 This block sets up the middleware and views with gettext support. We declare
@@ -35,7 +35,7 @@ support for English, German, Spanish, and two debug locales (more on this later)
 
 In your routes, you can use the gettext function in ``.js`` files.
 
-    exports.homepage = function (req, resp) {
+    exports.homepage = function(req, resp) {
       resp.render('home', {title: req.gettext("Hey, careful, man, there's a beverage here!")});
     };
 
@@ -53,7 +53,10 @@ In your templates files, you can use the gettext function in ``.ejs`` files:
 
 i18n-abide also provides a ``format`` function for string interpolation.
 
-These are both server side translations with ``node-gettext``. If you also want to do client-side translations,
+These are both server side translations and client side translations. Server side works out of the box
+and is the most common use case.
+
+If you also want to do client-side translations,
 i18n-abide provides ``lib/gettext.js`` and you can do the same in ``.js`` and ``.ejs`` files.
 
 ## Setup Gettext
