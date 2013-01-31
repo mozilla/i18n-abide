@@ -100,6 +100,63 @@ suite.addBatch({
     "Don't choose Punjabi (India)": function(err, locale) {
       assert.equal(locale, "en-us");
     }
+  },
+  "Issue#806649 Don't match Finnish to Ligurian": {
+    topic: function() {
+      var accept = 'fil-PH,fil;q=0.97,en-US;q=0.94,en;q=0.91,en-ph;' +
+        'q=0.89,en-gb;q=0.86,hu-HU;q=0.83,hu;q=0.8,en-AU;q=0.77,en-nl;' +
+        'q=0.74,nl-en;q=0.71,nl;q=0.69,en-HK;q=0.66,en-sg;q=0.63,en-th;' +
+        'q=0.6,pl-PL;q=0.57,pl;q=0.54,fr-FR;q=0.51,fr;q=0.49,en-AE;' +
+        'q=0.46,zh-CN;q=0.43,zh;q=0.4,ja-JP;q=0.37,ja;q=0.34,id-ID;' +
+        'q=0.31,id;q=0.29,ru-RU;q=0.26,ru;q=0.23,de-DE;q=0.2,de;' +
+        'q=0.17,ko-KR;q=0.14,ko;q=0.11,es-ES;q=0.09,es;q=0.06,en-AP;q=0.0';
+      var supported = ['en-US', 'fi'];
+      var def = 'en-US';
+      return i18n.bestLanguage(
+          i18n.parseAcceptLanguage(accept),
+          supported, def);
+    },
+    "Don't choose fi (Finnish)": function(err, locale) {
+      assert.equal(locale, "en-US");
+    }
+  },
+  "Do support Ligurian": {
+    topic: function() {
+      var accept = 'fil-PH,fil;q=0.97,en-US;q=0.94,en;q=0.91,en-ph;' +
+        'q=0.89,en-gb;q=0.86,hu-HU;q=0.83,hu;q=0.8,en-AU;q=0.77,en-nl;' +
+        'q=0.74,nl-en;q=0.71,nl;q=0.69,en-HK;q=0.66,en-sg;q=0.63,en-th;' +
+        'q=0.6,pl-PL;q=0.57,pl;q=0.54,fr-FR;q=0.51,fr;q=0.49,en-AE;' +
+        'q=0.46,zh-CN;q=0.43,zh;q=0.4,ja-JP;q=0.37,ja;q=0.34,id-ID;' +
+        'q=0.31,id;q=0.29,ru-RU;q=0.26,ru;q=0.23,de-DE;q=0.2,de;' +
+        'q=0.17,ko-KR;q=0.14,ko;q=0.11,es-ES;q=0.09,es;q=0.06,en-AP;q=0.0';
+      var supported = ['en-US', 'fi', 'fil-PH'];
+      var def = 'en-US';
+      return i18n.bestLanguage(
+          i18n.parseAcceptLanguage(accept),
+          supported, def);
+    },
+    "Matches full locale": function(err, locale) {
+      assert.equal(locale, "fil-PH");
+    }
+  },
+  "Do support Ligurian without region": {
+    topic: function() {
+      var accept = 'fil-PH,fil;q=0.97,en-US;q=0.94,en;q=0.91,en-ph;' +
+        'q=0.89,en-gb;q=0.86,hu-HU;q=0.83,hu;q=0.8,en-AU;q=0.77,en-nl;' +
+        'q=0.74,nl-en;q=0.71,nl;q=0.69,en-HK;q=0.66,en-sg;q=0.63,en-th;' +
+        'q=0.6,pl-PL;q=0.57,pl;q=0.54,fr-FR;q=0.51,fr;q=0.49,en-AE;' +
+        'q=0.46,zh-CN;q=0.43,zh;q=0.4,ja-JP;q=0.37,ja;q=0.34,id-ID;' +
+        'q=0.31,id;q=0.29,ru-RU;q=0.26,ru;q=0.23,de-DE;q=0.2,de;' +
+        'q=0.17,ko-KR;q=0.14,ko;q=0.11,es-ES;q=0.09,es;q=0.06,en-AP;q=0.0';
+      var supported = ['en-US', 'fi', 'fil'];
+      var def = 'en-US';
+      return i18n.bestLanguage(
+          i18n.parseAcceptLanguage(accept),
+          supported, def);
+    },
+    "Matches partial locale": function(err, locale) {
+      assert.equal(locale, "fil");
+    }
   }
 });
 
