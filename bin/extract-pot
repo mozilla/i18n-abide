@@ -34,10 +34,7 @@ argv._.forEach(function (dir) {
 // top of repo is our current working directory
 process.chdir(path.dirname(__dirname));
 
-console.log('My Path is ', __dirname);
 var jsxGettextPath = path.join(__dirname, '../node_modules/.bin/jsxgettext');
-
-console.log(jsxGettextPath);
 
 var jsCmd = jsxGettextPath + ' %s --keyword=_ -L JS ' +
 '--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
