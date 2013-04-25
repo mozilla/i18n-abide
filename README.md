@@ -9,11 +9,25 @@ This module **abides by the Mozilla L10n way of doing things**.
 
 # Status
 
-This module is under development, currently being extracted from [BrowserID](https://github.com/mozilla/browserid).
+This module is under development, but frozen parts of it power the [Mozilla Persona](https://github.com/mozilla/browserid) service in 40+ languages.
 
-# Pre-requisites
+# Tutorial
+
+Mozilla Hacks blog has a three part introduction.
+
+* [Localize Your Node.js Service](https://hacks.mozilla.org/2013/04/localize-your-node-js-service-part-1-of-3-a-node-js-holiday-season-part-9/)
+* [Localization community, tools & process](https://hacks.mozilla.org/2013/04/localization-community-tools-process-part-2-of-3-a-node-js-holiday-season-part-10/)
+* Coming Soon
+
+# Pre-requisites for Developers
+
+`npm install` has got your back
+
+# Pre-requisites for String Wranglers
 
 You should install Gnu gettext to get msginit, xgettext, and other tools.
+
+What is a string wrangler? A person or an automated build process that will merge and delete strings between releases.
 
 # Usage
 
