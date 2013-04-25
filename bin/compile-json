@@ -27,10 +27,12 @@ for pofile in `find $1 -type f -name "*.po"`; do
     lang=`basename $subdir`
     stem=`basename $pofile .po`
     jsonfile="$2/${lang}/${stem}.json"
+    jsfile="$2/${lang}/${stem}.js"
     mkdir -p $2/${lang}
 
-    echo -n ";var json_locale_data = " > $jsonfile
     ./node_modules/.bin/po2json.js -p  $pofile >> $jsonfile
-    echo ";" >> $jsonfile
+    echo -n ";var json_locale_data = " > $jsfile
+    cat $jsonfile >> $jsfile
+    echo ";" >> $jsfile
 done
 rm $lockfile
