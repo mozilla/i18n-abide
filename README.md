@@ -17,7 +17,7 @@ Mozilla Hacks blog has a three part introduction.
 
 * [Localize Your Node.js Service](https://hacks.mozilla.org/2013/04/localize-your-node-js-service-part-1-of-3-a-node-js-holiday-season-part-9/)
 * [Localization community, tools & process](https://hacks.mozilla.org/2013/04/localization-community-tools-process-part-2-of-3-a-node-js-holiday-season-part-10/)
-* Coming Soon
+* [Localization in Action](https://hacks.mozilla.org/2013/04/localization-in-action-part-3-of-3-a-node-js-holiday-season-part-11/)
 
 # Pre-requisites for Developers
 
