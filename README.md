@@ -53,6 +53,13 @@ In your routes, you can use the gettext function in ``.js`` files.
       resp.render('home', {title: req.gettext("Hey, careful, man, there's a beverage here!")});
     };
 
+You can set locale in the scope of per-request instead of letting ``i18n-abide`` decide the locale for you. The following example shows how to set the locale of the request to ``zh_TW`` (Traditional Chinese): 
+
+    exports.homepage = function(req, resp) {
+      req.setLocale('zh_TW');
+      resp.render('home', {title: "my title"});
+    };
+
 In your layout files, you can add
 
     <!DOCTYPE html>
