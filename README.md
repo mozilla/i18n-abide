@@ -80,7 +80,59 @@ and is the most common use case.
 If you also want to do client-side translations,
 i18n-abide provides ``lib/gettext.js`` and you can do the same in ``.js`` and ``.ejs`` files.
 
-## Setup Gettext
+## Setting Language via HTTP Header and URL
+
+The ``i18n-abide`` module uses the [`accept-language` HTTP header](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4) to determine which language to use. It is also possible to have language tags parsed on the URL with an option at setup:
+
+```javascript
+app.use(i18n.abide({
+  supported_languages: ['en-US', 'de', 'es', 'db-LB', 'it-CH'],
+  default_lang: 'en-US',
+  debug_lang: 'it-CH',
+  translation_directory: 'i18n',
+  locale_on_url: true
+}));
+```
+
+Here the `locale_on_url` option has been set to `true`, which causes ``i18n-abide`` to perform an extra step with every request: each time a request comes to the server, the URL is examined for an optional language tag. Some examples include:
+
+* http://app.com/
+* http://app.com/en-US/
+* http://app.com/de/
+
+If a URL includes a language tag for one of the supported languages specified at setup, the request's `accept-language` header is overridden by the URL's language. The URL is then rewritten to no longer include this language tag, such that routes further down in the middleware chain are unaffected.
+
+Given the URLs listed above, the following would happen in the ``i18n-abide`` middleware with `locale_on_url` set to `true`:
+
+* http://app.com/ --> http://app.com/
+* http://app.com/en-US/ --> locale is now `en-US`, url is http://app.com/
+* http://app.com/de --> locale is now `de`, url is http://app.com/
+
+The `locale_on_url` option is off by default.
+
+## Translation files
+
+The ``i18n-abide`` module can use either PO/POT files, which get transformed to JSON via provided command line tools, or [PLIST](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/plist.5.html) (i.e., XML) files, which require no transformation prior to use.
+
+By default PO/POT files are used. This can be changed during setup:
+
+```javascript
+app.use(i18n.abide({
+  supported_languages: ['en-US', 'de', 'es', 'db-LB', 'it-CH'],
+  default_lang: 'en-US',
+  debug_lang: 'it-CH',
+  translation_directory: 'i18n',
+  translation_type: 'plist'
+}));
+```
+
+This will cause ``i18n-abide`` to look for files named `messages.plist` in locale directories beneath your `translation_directory` root. For example, the `es` language listed above should be located at `i18n/es/messages.plist`.
+
+## Working with PO/POT files, and gettext
+
+If using the default of PO/POT files instead of plist, you must transform your strings such that ``i18n-abide`` can work with them.
+
+### Setup Gettext
 
     $ mkdir -p locale/templates/LC_MESSAGES
     $ ./node_modules/.bin/extract-pot --locale locale .
