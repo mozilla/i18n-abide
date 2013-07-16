@@ -1,23 +1,32 @@
-# i18n Support
+# i18n-abide Usage
 
-Working with a localized version of BrowserID is totally optional for
-casual development.
+Adding localization to your project,
+should not get in the way of your developers from a day to day perspective.
 
-To get started, please [read the l10n locale doc](http://svn.mozilla.org/projects/l10n-misc/trunk/browserid/README).
+You will add this module, but if you don't have any localization files,
+it is okay and there won't be any errors.
 
 ## Development
 
-Any copy, label, or error message that will be shown to users **should** be wrapped in a gettext function.
+Any copy, label, or error message that will be shown to users **should** be
+wrapped in a gettext function.
 
-These strings must be evaluated in the scope of a request, so we know which locale the user has.
+These strings must be evaluated in the scope of a request,
+so we know which locale the user has.
 
-In JavaScript or EJS templates use `gettext`. If you need to do string interpolation, use the
-[format](../lib/i18n.js) function, which is kind of like node.js' util.format, except crappier.
+In JavaScript or EJS templates use `gettext`.
+If you need to do string interpolation, use the
+[format](../lib/i18n.js) function,
+which is kind of like node.js' util.format, except crappier.
 
-Using `_` is more idiomatic, but conflicts with `underscore.js` on the client side JS and EJS files.
+Using `_` is more idiomatic,
+but conflicts with `underscore.js` on the client side JS and EJS files.
 
-Technically, you can alias gettext to _ and use util.format, etc in node.js code... but for development consistency,
-we should keep EJS templates looking similar, regardless of if they are evaluated client or server-side.
+Technically, you can alias gettext to _ and use util.format in node.js code...
+but for development consistency,
+Mozilla codebases should keep EJS templates looking similar,
+regardless of if they are evaluated client or server-side.
+So we don't use `_` which can be confused with `underscore.js`.
 
 ## Variables
 
@@ -29,54 +38,26 @@ The request object and the response's template context have the following variab
  * gettext - Gettext function
  * format - for string interpolation
 
-## Tools
-
-``scripts/every-locale.js`` - will output a list of every locale under the locale directory. This can
-be copied into ``config/l10n-all.json``.
-
-``scripts/check-l10n-config.js`` - Run with the ``CONFIG_FILES`` environment variable set to the one json
-config file which you'll like to validate. Examples:
-
-    CONFIG_FILES=/home/ozten/Projects/browserid/config/l10n-prod.json node ./scripts/check-l10n-config.js
-    CONFIG_FILES=/home/ozten/Projects/browserid/config/l10n-all.json node ./scripts/check-l10n-config.js
-
-## Contributions
-
-``scripts/check-po.sh`` - Prints statistics on various .po files, assumes `locale` directory.
-
 ## Debugging
 
-If code is evaluated in node.js (server-side) then translation is provided from the
-`i18n/{locale}/messages.json` file which contains the translation. These JSON files come
-from PO files.
+If code is evaluated in node.js (server-side) then translation is provided from
+the `i18n/{locale}/messages.json` file which contains the translation.
+These JSON files come from the `message.po` PO files.
 
-If code is evaluated on the client-side, then `static/gettext.js` is in
-the house... strings are `i18n/{locale}/client.json` files.
+If code is evaluated on the client-side, then `static/gettext.js` is *in
+the house*...
+strings are from the `i18n/{locale}/client.js` files.
 
 If code is evaluated in your head, then clearly we are post-singularity. Why are you
 still using gettext?
 
-You can change `i18n` in the above to examples by setting the `translation_directory` in your
-options to i18n-abide. If you do server side and client side strings, it is recommended that you
-put your translation_directory under a web accessible directory like `static`.
+You can change `i18n` in the above to examples by setting the
+`translation_directory` in your options to i18n-abide.
+If you do server side and client side strings,
+it is recommended that you put your translation_directory under a web
+accessible directory like `static`.
 
-Use the eo locale for development and debugging. It is auto-translated with:
-for catalog in messages client; do
-  echo "Translating ${catalog}.po"
-  podebug --rewrite=flipped -i locale/templates/LC_MESSAGES/${catalog}.pot -o locale/eo/LC_MESSAGES/${catalog}.po
-done
+Of course you can integrate gettext.js and client.js via your existing
+JavaScript build to compress, minify, etc.
 
-## New Locales
-
-To add a new language, and thus a new locale to BrowserID, do the following:
-Assuming you want to add eo for Esperanto support...
-
-    mkdir -p locale/eo/LC_MESSAGES
-
-    msginit --input=./locale/templates/LC_MESSAGES/messages.pot \
-            --output-file=./locale/eo/LC_MESSAGES/messages.po \
-            -l eo
-
-    msginit --input=./locale/templates/LC_MESSAGES/client.pot \
-            --output-file=./locale/eo/LC_MESSAGES/client.po \
-            -l eo
+See [API.md](API.md) for more advanced uses of `i18n-abide`.
