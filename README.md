@@ -112,7 +112,9 @@ The `locale_on_url` option is off by default.
 
 ## Translation files
 
-The ``i18n-abide`` module can use either PO/POT files, which get transformed to JSON via provided command line tools, or [PLIST](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/plist.5.html) (i.e., XML) files, which require no transformation prior to use.
+The ``i18n-abide`` module currently supports three file formats. PO/POT files, which get transformed to JSON via provided command line tools, [PLIST](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/plist.5.html) (i.e., XML) files, which require no transformation prior to use, and [JSON](https://developer.mozilla.org/en/docs/JSON) (JavaScript Object Notation) a key-value JSON type. 
+
+NOTE: The PO/POT files are also transformed into .JSON, but do not follow the same layout as a simple key-value pair JSON files.
 
 By default PO/POT files are used. This can be changed during setup:
 
