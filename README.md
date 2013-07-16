@@ -9,7 +9,7 @@ This module **abides by the Mozilla L10n way of doing things**.
 
 # Status
 
-Used in production systems, such as the 
+Used in production systems, such as the
 [Mozilla Persona](https://github.com/mozilla/browserid) service in 40+
 languages.
 
@@ -20,7 +20,6 @@ Also used on other websites including:
 
 This module supports several localization backends:
 * Gettext PO files (default and documented below)
-  * Custom JSON
 * Plist files
 * Transflex key-value-JSON files
 
@@ -30,7 +29,10 @@ This module supports client side as well as server side localization.
 
     npm install i18n-abide
 
-In your app where you setup express or connect:
+In this README, we'll use express and EJS templates, but other
+integrations are possible.
+
+In your app where you setup express:
 
     var i18n = require('i18n-abide');
 
@@ -72,15 +74,18 @@ If you also want to do client-side translations,
 i18n-abide provides `lib/gettext.js` and you can do the same in `.js` and
 `.ejs` files.
 
-## Setting Language via HTTP Header and URL
+## Setting Language via HTTP Header
 
-The `i18n-abide` module uses the 
+The `i18n-abide` module uses the
 [`accept-language` HTTP header](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4)
 to determine which language to use.
+
+See [API docs](./docs/API.md) for overriding this via URL or the API directly.
 
 ## Translation files
 
 The `i18n-abide` module currently supports three file formats.
+
 1) PO/POT files, which get transformed to JSON via provided command line tools.
 
 2) [PLIST](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/plist.5.html) (i.e., XML)
@@ -88,11 +93,11 @@ files, which require no transformation prior to use.
 
 3) [Transflex](http://support.transifex.com/customer/portal/articles/1223004-key-value-json-files) [JSON](https://developer.mozilla.org/en/docs/JSON)
 (JavaScript Object Notation) a key-value JSON type,
-which require no transformation prioer to use.
+which require no transformation prior to use.
 
 ### PO/POT files
 
-This is the default and assumed for documention in this README.
+This is the default and assumed for documentation in this README.
 
 PO files can be compiled to .json or Gettext binary `.mo` files.
 
@@ -133,6 +138,6 @@ Mozilla Hacks blog has a three part introduction.
 * [Localization in Action](https://hacks.mozilla.org/2013/04/localization-in-action-part-3-of-3-a-node-js-holiday-season-part-11/)
 
 # Docs
-* See docs/USAGE.md for full details.
-* API.md has more advanced config and API
-* GETTEXT documents how to use PO/POT files
+* See [USAGE](./docs/USAGE.md) for full details.
+* [API docs](./docs/API.md) has more advanced config options and APIs
+* [GETTEXT](./dcos/GETTEXT.md) documents how to use PO/POT files
