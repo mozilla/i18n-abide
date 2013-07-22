@@ -160,6 +160,57 @@ suite.addBatch({
   }
 });
 
+
+var makeResp = function(_locals) {
+  return {
+    locals: function(args, orValue) {
+      if ('string' === typeof args) {
+        _locals[args] = orValue;
+      } else {
+        Object.keys(args).forEach(function(key) {
+          _locals[key] = args[key];
+        });
+      }
+    }
+  };
+};
+suite.addBatch({
+  "i18n.abide middleware is setup": {
+    topic: function(){
+      var middleware = i18n.abide({});
+      var that = this;
+      var _locals = {};
+      var req = {
+        headers: {
+          'accept-language': "pl,fr-FR;q=0.3,en-US;q=0.1"
+        }
+      };
+      middleware(req, makeResp(_locals), function() {
+
+        // The request and response objects both get
+        // references to i18n related variables and fn
+        // Example: req.lang as well as _locals.lang
+        [req, _locals].forEach(function(obj){
+          assert.equal(obj.lang, 'en-US');
+          assert.equal(obj.locale, 'en_US');
+          assert.ok(obj.format);
+          assert.equal(typeof obj.format, 'function');
+          assert.ok(obj.setLocale);
+          assert.equal(typeof obj.setLocale, 'function');
+          assert.ok(obj.gettext);
+          assert.equal(typeof obj.gettext, 'function');
+        });
+
+        that.callback();
+      });
+    },
+    'gets a callback': function(err) {
+      assert.ok(! err);
+      assert(true);
+    }
+  }
+});
+
 // run or export the suite.
 if (process.argv[1] === __filename) suite.run();
 else suite.export(module);
