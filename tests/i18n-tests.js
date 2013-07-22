@@ -220,10 +220,12 @@ suite.addBatch({
         headers: {
           'accept-language': "pl,fr-FR;q=0.3,en-US;q=0.1"
         },
+        // format from express-resource
         format: function() {
 
         }
       };
+      _locals.format = req.format;
       try {
         console.log('== calling middleware');
         middleware(req, makeResp(_locals), function() {
@@ -233,6 +235,54 @@ suite.addBatch({
       } catch (e) {
         this.callback();
       }
+    },
+    'gets a callback': function(err) {
+      assert.ok(! err);
+    }
+  }
+});
+
+suite.addBatch({
+  "i18n.abide middleware allows re-naming the format fn": {
+    topic: function(){
+      var middleware = i18n.abide({
+        format_fn_name: 'i18nFormat'
+      });
+      var that = this;
+      var _locals = {};
+      var req = {
+        headers: {
+          'accept-language': "pl,fr-FR;q=0.3,en-US;q=0.1"
+        },
+        // format from express-resource
+        format: function(v) {
+          this.formatCalled = v;
+        }
+      };
+      _locals.format = req.format;
+      middleware(req, makeResp(_locals), function() {
+        // The request and response objects both get
+        // references to i18n related variables and fn
+        // Example: req.lang as well as _locals.lang
+
+        [req, _locals].forEach(function(obj){
+
+          assert.ok(obj.format);
+          assert.equal(typeof obj.format, 'function');
+
+          // Existing format is callable and functional
+          obj.format('foo');
+          assert.ok(obj.formatCalled, 'foo');
+
+          // Our renamed i18n.format is callable and functional
+          assert.ok(obj.i18nFormat);
+          assert.equal(typeof obj.i18nFormat, 'function');
+          var h = obj.i18nFormat("%s %s!", ["Hello", "World"]);
+          assert.equal(h, 'Hello World!');
+        });
+
+        that.callback();
+      });
     },
     'gets a callback': function(err) {
       assert.ok(! err);
