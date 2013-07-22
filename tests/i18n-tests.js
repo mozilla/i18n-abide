@@ -206,7 +206,36 @@ suite.addBatch({
     },
     'gets a callback': function(err) {
       assert.ok(! err);
-      assert(true);
+    }
+  }
+});
+
+suite.addBatch({
+  "i18n.abide middleware detects format conflict": {
+    topic: function(){
+      var middleware = i18n.abide({});
+      var that = this;
+      var _locals = {};
+      var req = {
+        headers: {
+          'accept-language': "pl,fr-FR;q=0.3,en-US;q=0.1"
+        },
+        format: function() {
+
+        }
+      };
+      try {
+        console.log('== calling middleware');
+        middleware(req, makeResp(_locals), function() {
+          console.log('== calling  assert fail');
+          that.callback(new Error('We should have failed'));
+        });
+      } catch (e) {
+        this.callback();
+      }
+    },
+    'gets a callback': function(err) {
+      assert.ok(! err);
     }
   }
 });
