@@ -310,6 +310,9 @@ suite.addBatch({
       middleware(req, makeResp(_locals), function() {
         assert.equal(req.url, "/");
         assert.equal(req.lang, "fr");
+        assert.equal(req.locale, "fr");
+        assert.equal(_locals.lang, "fr");
+        assert.equal(_locals.lang_dir, "ltr");
         that.callback();
       });
     },
@@ -338,6 +341,9 @@ suite.addBatch({
       middleware(req, makeResp(_locals), function() {
         assert.equal(req.url, "/ru/");
         assert.equal(req.lang, "en");
+        assert.equal(req.locale, "en");
+        assert.equal(_locals.lang, "en");
+        assert.equal(_locals.lang_dir, "ltr");
         that.callback();
       });
     },
@@ -367,6 +373,9 @@ suite.addBatch({
       };
       middleware(req, makeResp(_locals), function() {
         assert.equal(req.lang, "en");
+        assert.equal(req.locale, "en");
+        assert.equal(_locals.lang, "en");
+        assert.equal(_locals.lang_dir, "ltr");
         that.callback();
       });
     },
