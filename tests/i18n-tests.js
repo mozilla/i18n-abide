@@ -385,6 +385,34 @@ suite.addBatch({
   }
 });
 
+suite.addBatch({
+  "i18n.abide correctly hands out strings for known langs via getStrings": {
+    topic: function(){
+      // Create a new, stand-alone i18n instance (i19n) so we can isolate from other tests
+      var i19n = require('../lib/i18n');
+      i19n.abide({
+        supported_languages: [ 'en', 'fr', 'de' ],
+        default_lang: 'en',
+        translation_type: 'key-value-json',
+        translation_directory: path.join(__dirname, 'locale')
+      });
+      return i19n;
+    },
+    "gives en strings for `en` lang": function(i19n) {
+      var language = i19n.getStrings('en').language;
+      assert.equal(language, "English");
+    },
+    "gives fr strings for `fr` lang": function(i19n) {
+      var language = i19n.getStrings('fr').language;
+      assert.equal(language, "French");
+    },
+    "gives de strings for `de` lang": function(i19n) {
+      var language = i19n.getStrings('de').language;
+      assert.equal(language, "German");
+    }
+  }
+});
+
 // run or export the suite.
 if (process.argv[1] === __filename) suite.run();
 else suite.export(module);
