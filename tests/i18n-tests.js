@@ -6,6 +6,7 @@
 
 const assert = require('assert'),
       vows = require('vows'),
+      path = require('path'),
       i18n = require('../lib/i18n');
 
 var suite = vows.describe('i18n');
@@ -281,6 +282,91 @@ suite.addBatch({
           assert.equal(h, 'Hello World!');
         });
 
+        that.callback();
+      });
+    },
+    'gets a callback': function(err) {
+      assert.ok(! err);
+    }
+  }
+});
+
+suite.addBatch({
+  "i18n.abide middleware correctly strips known langs from URLs": {
+    topic: function(){
+      var middleware = i18n.abide({
+        supported_languages: [ 'en', 'fr', 'de' ],
+        default_lang: 'en',
+        translation_type: 'key-value-json',
+        translation_directory: path.join(__dirname, 'locale'),
+        locale_on_url: true
+      });
+      var that = this;
+      var _locals = {};
+      var req = {
+        url: '/fr/',
+        headers: {}
+      };
+      middleware(req, makeResp(_locals), function() {
+        assert.equal(req.url, "/");
+        assert.equal(req.lang, "fr");
+        that.callback();
+      });
+    },
+    'gets a callback': function(err) {
+      assert.ok(! err);
+    }
+  }
+});
+
+suite.addBatch({
+  "i18n.abide middleware correctly leaves unknown langs on URLs": {
+    topic: function(){
+      var middleware = i18n.abide({
+        supported_languages: [ 'en', 'fr', 'de' ],
+        default_lang: 'en',
+        translation_type: 'key-value-json',
+        translation_directory: path.join(__dirname, 'locale'),
+        locale_on_url: true
+      });
+      var that = this;
+      var _locals = {};
+      var req = {
+        url: '/ru/',
+        headers: {}
+      };
+      middleware(req, makeResp(_locals), function() {
+        assert.equal(req.url, "/ru/");
+        assert.equal(req.lang, "en");
+        that.callback();
+      });
+    },
+    'gets a callback': function(err) {
+      assert.ok(! err);
+    }
+  }
+});
+
+suite.addBatch({
+  "i18n.abide middleware does the right thing with accept-language when locale_on_url is used": {
+    topic: function(){
+      var middleware = i18n.abide({
+        supported_languages: [ 'en', 'fr', 'de' ],
+        default_lang: 'en',
+        translation_type: 'key-value-json',
+        translation_directory: path.join(__dirname, 'locale'),
+        locale_on_url: true
+      });
+      var that = this;
+      var _locals = {};
+      var req = {
+        url: '/',
+        headers: {
+          'accept-language': 'ru'
+        }
+      };
+      middleware(req, makeResp(_locals), function() {
+        assert.equal(req.lang, "en");
         that.callback();
       });
     },
