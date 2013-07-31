@@ -368,7 +368,7 @@ suite.addBatch({
       var req = {
         url: '/',
         headers: {
-          'accept-language': 'ru'
+          'accept-language': 'ru;q=0.1'
         }
       };
       middleware(req, makeResp(_locals), function() {
