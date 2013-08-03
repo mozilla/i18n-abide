@@ -140,4 +140,4 @@ Mozilla Hacks blog has a three part introduction.
 # Docs
 * See [USAGE](./docs/USAGE.md) for full details.
 * [API docs](./docs/API.md) has more advanced config options and APIs
-* [GETTEXT](./dcos/GETTEXT.md) documents how to use PO/POT files
+* [GETTEXT](./docs/GETTEXT.md) documents how to use PO/POT files
