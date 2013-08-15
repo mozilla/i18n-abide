@@ -17,6 +17,9 @@ var argv = require('optimist').demand(['l'])
    .describe('l', 'locale directory where pot and po files will be written')
    //.alias('e', 'exclude')
    .describe('exclude', 'directory or filename pattern to exclude from jsxgettext\n\t\tmay be used multiple times')
+   .alias('t', 'template-ext')
+   .default('t', 'ejs')
+   .describe('template-ext', 'File extension of templates. Defaults to ejs as in home.ejs')
    .check(function (argv) {
     // We have atleast one directory of source code to process
     return argv._.length >= 1;
@@ -42,7 +45,7 @@ var jsCmd = jsxGettextPath + ' %s --keyword=_ -L JS ' +
 
 var ejsCmd = jsxGettextPath + ' %s --keyword=_ -L EJS ' +
 '--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
-'`find %s -name \'*.ejs\' | grep -v node_modules | grep -v .git';
+'`find %s -name \'*.%s\' | grep -v node_modules | grep -v .git';
 
 if (argv.exclude) {
   var excludes = argv.exclude;
@@ -54,6 +57,8 @@ if (argv.exclude) {
     ejsCmd += ' | grep -v ' + exclude;
   });
 }
+
+templateExt = argv['template-ext'];
 // Close out `find ...` backtick
 jsCmd += '`';
 ejsCmd += '`';
@@ -72,11 +77,12 @@ async.forEachSeries(sourceDirs, function (dir) {
       console.error(stdout);
       console.error(stderr);
     } else {
-      exec(util.format(ejsCmd, dashJ, localeDir, dir), function (err, stdout, stderr) {
+      exec(util.format(ejsCmd, dashJ, localeDir, dir, templateExt), function (err, stdout, stderr) {
         if (err) {
           console.error(stdout);
           console.error(stderr);
         }
+console.log('done');
       });
     }
   });
