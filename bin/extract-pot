@@ -7,7 +7,7 @@ var async = require('async'),
 // ./scripts/extract-pot --locale locale server static
 // Given a locale directory to write out pot files and
 // 1 or more directories to find sources in, run
-// .js and .ejs files through jsxgettext
+// .js and template (.ejs) files through jsxgettext
 
 var argv = require('optimist').demand(['l'])
    .usage('Extract gettext strings from codebase. Usage: $0 --locale=DIRECTORY INPUT_DIR [INPUT_DIR]*')
@@ -17,9 +17,12 @@ var argv = require('optimist').demand(['l'])
    .describe('l', 'locale directory where pot and po files will be written')
    //.alias('e', 'exclude')
    .describe('exclude', 'directory or filename pattern to exclude from jsxgettext\n\t\tmay be used multiple times')
-   .alias('t', 'template-ext')
+   .alias('t', 'template-engine')
    .default('t', 'ejs')
-   .describe('template-ext', 'File extension of templates. Defaults to ejs as in home.ejs')
+   .describe('template-engine', 'Template engine. Defaults to EJS, Jinja supported for nunjucks')
+   .alias('f', 'template-file-ext')
+   .default('f', 'ejs')
+   .describe('template-file-ext', 'File extension of templates. Defaults to ejs as in home.ejs, value can be valid file ext.')
    .check(function (argv) {
     // We have atleast one directory of source code to process
     return argv._.length >= 1;
@@ -43,8 +46,8 @@ var jsCmd = jsxGettextPath + ' %s --keyword=_ -L JS ' +
 '--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
 '`find %s -name \'*.js\' | grep -v node_modules | grep -v .git';
 
-var ejsCmd = jsxGettextPath + ' %s --keyword=_ -L EJS ' +
-'--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
+var templateCmd = jsxGettextPath + ' %s --keyword=_ -L ' + argv['template-engine'] +
+' --output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
 '`find %s -name \'*.%s\' | grep -v node_modules | grep -v .git';
 
 if (argv.exclude) {
@@ -54,14 +57,14 @@ if (argv.exclude) {
   }
   excludes.forEach(function (exclude) {
     jsCmd += ' | grep -v ' + exclude;
-    ejsCmd += ' | grep -v ' + exclude;
+    templateCmd += ' | grep -v ' + exclude;
   });
 }
 
-templateExt = argv['template-ext'];
+templateExt = argv['template-file-ext'];
 // Close out `find ...` backtick
 jsCmd += '`';
-ejsCmd += '`';
+templateCmd += '`';
 
 // Create a new .pot file
 var dashJ = '';
@@ -77,7 +80,8 @@ async.forEachSeries(sourceDirs, function (dir) {
       console.error(stdout);
       console.error(stderr);
     } else {
-      exec(util.format(ejsCmd, dashJ, localeDir, dir, templateExt), function (err, stdout, stderr) {
+console.log(util.format(templateCmd, dashJ, localeDir, dir, templateExt));
+      exec(util.format(templateCmd, dashJ, localeDir, dir, templateExt), function (err, stdout, stderr) {
         if (err) {
           console.error(stdout);
           console.error(stderr);
