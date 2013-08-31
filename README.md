@@ -21,7 +21,7 @@ Also used on other websites including:
 This module supports several localization backends:
 * Gettext PO files (default and documented below)
 * Plist files
-* Transflex key-value-JSON files
+* Transifex key-value-JSON files
 
 This module supports client side as well as server side localization.
 
@@ -91,7 +91,7 @@ The `i18n-abide` module currently supports three file formats.
 2) [PLIST](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/plist.5.html) (i.e., XML)
 files, which require no transformation prior to use.
 
-3) [Transflex](http://support.transifex.com/customer/portal/articles/1223004-key-value-json-files) [JSON](https://developer.mozilla.org/en/docs/JSON)
+3) [Transifex](http://support.transifex.com/customer/portal/articles/1223004-key-value-json-files) [JSON](https://developer.mozilla.org/en/docs/JSON)
 (JavaScript Object Notation) a key-value JSON type,
 which require no transformation prior to use.
 
@@ -106,13 +106,13 @@ PO files are compiled to JavaScript for easy inclusion into your page or build
 script.
 
 NOTE: The PO/POT files are also transformed into .JSON,
-but do not follow the same layout as the Transflex JSON files.
+but do not follow the same layout as the Transifex JSON files.
 
 See [GETTEXT.md](docs/GETTEXT.md) for more details.
 
 ### Other file formats
 
-See [API](docs/API.md) for configuration and details around using Plist or Transflex localization files.
+See [API](docs/API.md) for configuration and details around using Plist or Transifex localization files.
 
 
 # Debugging and Testing
