@@ -385,6 +385,60 @@ suite.addBatch({
   }
 });
 
+suite.addBatch({
+  "when processing sr-Latn language to a locale": {
+    topic: function() {
+      return i18n.localeFrom("sr-Latn");
+    },
+    "the result should be sr_Latn": function(topic) {
+      assert.equal(topic, "sr_Latn");
+    }
+  },
+  "when processing en-US language to a locale": {
+    topic: function() {
+      return i18n.localeFrom("en-US");
+    },
+    "the result should be en_US": function(topic) {
+      assert.equal(topic, "en_US");
+    }
+  },
+  "when processing sr-Cyrl-RS language to a locale": {
+    topic: function() {
+      return i18n.localeFrom("sr-Cyrl-RS");
+    },
+    "the result should be sr_RS": function(topic) {
+      assert.equal(topic, "sr_RS");
+    }
+  },
+});
+
+suite.addBatch({
+  "when processing sr_Latn locale to a language": {
+    topic: function() {
+      return i18n.languageFrom("sr_Latn");
+    },
+    "the result should be sr-Latn": function(topic) {
+      assert.equal(topic, "sr-Latn");
+    }
+  },
+  "when processing en_US locale to a language": {
+    topic: function() {
+      return i18n.languageFrom("en_US");
+    },
+    "the result should be en-US": function(topic) {
+      assert.equal(topic, "en-US");
+    }
+  },
+  "when processing sr-Cyrl-RS locale to a language": {
+    topic: function() {
+      return i18n.languageFrom("sr_Cyrl_RS");
+    },
+    "the result should be sr-RS": function(topic) {
+      assert.equal(topic, "sr-RS");
+    }
+  },
+});
+
 // run or export the suite.
 if (process.argv[1] === __filename) suite.run();
 else suite.export(module);
