@@ -44,6 +44,49 @@ suite.addBatch({
 });
 
 suite.addBatch({
+  "a lowercase locale code": {
+    topic: function () {
+      return i18n.normalizeLocale("en_us");
+    },
+    "is normalized to correct 'xx_XX' format": function (err, str) {
+      assert.equal(str, "en_US");
+    },
+  },
+  "an uppercase locale code": {
+    topic: function () {
+      return i18n.normalizeLocale("EN_US");
+    },
+    "is normalized to correct 'xx_XX' format": function (err, str) {
+      assert.equal(str, "en_US");
+    }
+  },
+  "a normalized locale": {
+    topic: function () {
+      return i18n.normalizeLocale("en_US");
+    },
+    "returns its original value": function (err, str) {
+      assert.equal(str, "en_US");
+    }
+  },
+  "A lowercase, hypenated locale": {
+    topic: function () {
+      return i18n.normalizeLocale("en-us");
+    },
+    "is normalized to 'xx_XX' format": function (err, str) {
+      assert.equal(str, "en_US");
+    }
+  },
+  "An uppercase, hyphenated locale": {
+    topic: function () {
+      return i18n.normalizeLocale("EN-US");
+    },
+    "is normalized to 'xx_XX' format": function (err, str) {
+      assert.equal(str, "en_US");
+    }
+  }
+});
+
+suite.addBatch({
   "format a string without interpolation": {
     topic: function() {
       return i18n.format("Hello World!");
