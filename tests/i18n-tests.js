@@ -109,7 +109,7 @@ suite.addBatch({
     },
     "is normalized to correct 'xx_XX' format": function (err, str) {
       assert.equal(str, "en_US");
-    },
+    }
   },
   "an uppercase locale code": {
     topic: function () {
@@ -511,7 +511,7 @@ suite.addBatch({
     "the result should be sr_RS": function(topic) {
       assert.equal(topic, "sr_RS");
     }
-  },
+  }
 });
 
 suite.addBatch({
@@ -538,7 +538,45 @@ suite.addBatch({
     "the result should be sr-RS": function(topic) {
       assert.equal(topic, "sr-RS");
     }
-  },
+  }
+});
+
+suite.addBatch({
+  "i18n.abide support for express 4": {
+    topic: function () {
+      var middleware = i18n.abide({});
+      var that = this;
+      var res = {
+        locals: {}
+      };
+      var req = {
+        headers: {
+          'accept-language': "pl,fr-FR;q=0.3,en-US;q=0.1"
+        }
+      };
+      middleware(req, res, function () {
+
+        // The request and response objects both get
+        // references to i18n related variables and fn
+        // Example: req.lang as well as _locals.lang
+        [req, res.locals].forEach(function (obj) {
+          assert.equal(obj.lang, 'en-US');
+          assert.equal(obj.locale, 'en_US');
+          assert.ok(obj.format);
+          assert.equal(typeof obj.format, 'function');
+          assert.ok(obj.setLocale);
+          assert.equal(typeof obj.setLocale, 'function');
+          assert.ok(obj.gettext);
+          assert.equal(typeof obj.gettext, 'function');
+        });
+
+        that.callback();
+      });
+    },
+    'gets a callback': function (err) {
+      assert.ok(!err);
+    }
+  }
 });
 
 // run or export the suite.
