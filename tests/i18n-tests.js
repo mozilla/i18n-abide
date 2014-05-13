@@ -44,6 +44,65 @@ suite.addBatch({
 });
 
 suite.addBatch({
+  "a lowercase language code": {
+    topic: function () {
+      return i18n.normalizeLanguage("en");
+    },
+    "is normalized to itself": function (err, str) {
+      assert.equal(str, "en");
+    }
+  },
+  "an uppercase language code": {
+    topic: function () {
+      return i18n.normalizeLanguage("EN");
+    },
+    "is normalized to lowercase": function (err, str) {
+      assert.equal(str, "en");
+    }
+  },
+  "a two part langauge code": {
+    topic: function () {
+      return i18n.normalizeLanguage("en-us");
+    },
+    "is normalized to 'xx-XX' format": function (err, str) {
+      assert.equal(str, "en-US");
+    }
+  },
+  "a three char language code": {
+    topic: function () {
+      return i18n.normalizeLanguage("HaW");
+    },
+    "returns the same three char code in lowercase": function (err, str) {
+      assert.equal(str, "haw");
+    }
+  },
+  "a three char language code with two parts": {
+    topic: function () {
+      return i18n.normalizeLanguage("SoN-Ml");
+    },
+    "is normalized to 'xxx-XX' format": function (err, str) {
+      assert.equal(str, "son-ML");
+    }
+  },
+  "A language with three parts": {
+    topic: function () {
+      return i18n.normalizeLanguage("ja-JP-mac");
+    },
+    "ignores the second part and returns a locale in 'xx-Xxx' format": function (err, str) {
+      assert.equal(str, "ja-Mac");
+    }
+  },
+  "A language with an underscore": {
+    topic: function () {
+      return i18n.normalizeLanguage("sR_LatN");
+    },
+    "is normalized to a hyphen in correct 'xx-XXXX' format": function (err, str) {
+      assert.equal(str, "sr-Latn");
+    }
+  }
+});
+
+suite.addBatch({
   "a lowercase locale code": {
     topic: function () {
       return i18n.normalizeLocale("en_us");
