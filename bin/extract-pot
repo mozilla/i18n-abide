@@ -42,7 +42,7 @@ process.chdir(path.dirname(__dirname));
 
 var jsxGettextPath = path.join(__dirname, '../node_modules/.bin/jsxgettext');
 
-var jsCmd = jsxGettextPath + ' %s --keyword=_ -L JS ' +
+var jsCmd = jsxGettextPath + ' %s --keyword=_ -l JavaScript ' +
 '--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
 '`find %s -name \'*.js\' | grep -v node_modules | grep -v .git';
 
