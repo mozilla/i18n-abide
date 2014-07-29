@@ -30,7 +30,7 @@ for pofile in `find $1 -type f -name "*.po"`; do
     jsfile="$2/${lang}/${stem}.js"
     mkdir -p $2/${lang}
 
-    ./node_modules/.bin/po2json.js -p  $pofile >> $jsonfile
+    ./node_modules/.bin/po2json.js -p  $pofile > $jsonfile
     echo -n ";var json_locale_data = " > $jsfile
     cat $jsonfile >> $jsfile
     echo ";" >> $jsfile
