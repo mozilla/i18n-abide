@@ -58,7 +58,7 @@ Let's put the i18n-abide tools in our path:
 
 And run a string merge:
 
-    $ merge_po.sh ./locale
+    $ merge-po.sh ./locale
 
 A merge takes strings from our `.pot` files and pushes them into our `.po` files.
 If you have `podebug` installed, it also automatically translates `db-LB`.
