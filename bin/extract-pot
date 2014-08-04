@@ -44,11 +44,11 @@ var jsxGettextPath = path.join(__dirname, '../node_modules/.bin/jsxgettext');
 
 var jsCmd = jsxGettextPath + ' %s --keyword=_ -l JavaScript ' +
 '--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
-'`find %s -name \'*.js\' | grep -v node_modules | grep -v .git';
+'`find %s -name \'*.js\' | grep -v node_modules | grep -v "\\.git"';
 
 var templateCmd = jsxGettextPath + ' %s --keyword=_ -L ' + argv['template-engine'] +
 ' --output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
-'`find %s -name \'*.%s\' | grep -v node_modules | grep -v .git';
+'`find %s -name \'*.%s\' | grep -v node_modules | grep -v "\\.git"';
 
 if (argv.exclude) {
   var excludes = argv.exclude;
