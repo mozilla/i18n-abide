@@ -18,7 +18,7 @@
   "dependencies": {
     "async": "0.1.22",
     "gobbledygook": "https://github.com/lloyd/gobbledygook/tarball/354042684056e57ca77f036989e907707a36cff2",
-    "jsxgettext": "0.3.9",
+    "jsxgettext": "0.6.1",
     "optimist": "0.3.4",
     "plist": "0.4.3"
   },
