@@ -73,7 +73,7 @@ var dashJ = '';
 async.forEachSeries(sourceDirs, function (dir) {
   exec(util.format(jsCmd, dashJ, localeDir, dir), function (err, stdout, stderr) {
     // Join existing pot file
-    dashJ = ' --join-existing=true ';
+    dashJ = ' --join-existing';
 
     // We expect an error if no gettext strings are used in client side code
     if (err && stdout.indexOf('input argument is required') === -1) {
