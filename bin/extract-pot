@@ -42,10 +42,12 @@ argv._.forEach(function (dir) {
 process.chdir(path.dirname(__dirname));
 
 try {
+  // For npm v2 directory structure.
   fs.accessSync(path.join(__dirname, '../node_modules/.bin/jsxgettext'), fs.F_OK);
   var jsxGettextPath = path.join(__dirname, '../node_modules/.bin/jsxgettext');
 } catch(err) {
-  var jsxGettextPath = path.join(__dirname, '../.bin/jsxgettext');
+  // For npm v3 flat directory structure.
+  var jsxGettextPath = path.join(__dirname, '../../.bin/jsxgettext');
 }
 
 var jsCmd = jsxGettextPath + ' %s --keyword=_ -l JavaScript ' +
