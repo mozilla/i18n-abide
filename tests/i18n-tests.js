@@ -487,6 +487,93 @@ suite.addBatch({
   }
 });
 
+
+suite.addBatch({
+  "i18n.abide middleware can setLocale to default": {
+    topic: function(){
+      var middleware = i18n.abide({
+        supported_languages: [ 'en', 'en-US', 'fr', 'de' ],
+        default_lang: 'en-US',
+        translation_type: 'key-value-json',
+        translation_directory: path.join(__dirname, 'locale'),
+        locale_on_url: true
+      });
+      var that = this;
+      var _locals = {};
+      var req = {
+        url: '/',
+        headers: {
+          'accept-language': 'de;q=0.1'
+        }
+      };
+      middleware(req, makeResp(_locals), function() {
+        req.setLocale('en_US');
+        assert.equal(_locals.lang, 'en-US');
+        that.callback();
+      });
+    },
+    'gets a callback': function(err) {
+      assert.ok(! err);
+    }
+  },
+
+  "i18n.abide middleware can use gettext after calling setLocale to default": {
+    topic: function(){
+      var middleware = i18n.abide({
+        supported_languages: [ 'en', 'en-US', 'fr', 'de' ],
+        default_lang: 'en-US',
+        translation_type: 'key-value-json',
+        translation_directory: path.join(__dirname, 'locale'),
+        locale_on_url: true
+      });
+      var that = this;
+      var _locals = {};
+      var req = {
+        url: '/',
+        headers: {
+          'accept-language': 'de;q=0.1'
+        }
+      };
+      middleware(req, makeResp(_locals), function() {
+        req.setLocale('en_US');
+        assert.equal(req.gettext('language'), 'language');
+        that.callback();
+      });
+    },
+    'gets a callback': function(err) {
+      assert.ok(! err);
+    }
+  },
+
+  "i18n.abide middleware can use gettext after calling setLocale to another lang from default": {
+    topic: function(){
+      var middleware = i18n.abide({
+        supported_languages: [ 'en', 'en-US', 'fr', 'de' ],
+        default_lang: 'en-US',
+        translation_type: 'key-value-json',
+        translation_directory: path.join(__dirname, 'locale'),
+        locale_on_url: true
+      });
+      var that = this;
+      var _locals = {};
+      var req = {
+        url: '/',
+        headers: {
+          'accept-language': 'en-US;q=0.1'
+        }
+      };
+      middleware(req, makeResp(_locals), function() {
+        req.setLocale('de');
+        assert.equal(req.gettext('language'), 'German');
+        that.callback();
+      });
+    },
+    'gets a callback': function(err) {
+      assert.ok(! err);
+    }
+  }
+});
+
 suite.addBatch({
   "when processing sr-Latn language to a locale": {
     topic: function() {
