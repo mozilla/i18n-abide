@@ -2,7 +2,8 @@
 var async = require('async'),
     exec = require('child_process').exec,
     path = require('path'),
-    util = require('util');
+    util = require('util'),
+    fs = require('fs');
 
 // ./scripts/extract-pot --locale locale server static
 // Given a locale directory to write out pot files and
@@ -40,7 +41,14 @@ argv._.forEach(function (dir) {
 // top of repo is our current working directory
 process.chdir(path.dirname(__dirname));
 
-var jsxGettextPath = path.join(__dirname, '../node_modules/.bin/jsxgettext');
+try {
+  // For npm v2 directory structure.
+  fs.accessSync(path.join(__dirname, '../node_modules/.bin/jsxgettext'), fs.F_OK);
+  var jsxGettextPath = path.join(__dirname, '../node_modules/.bin/jsxgettext');
+} catch(err) {
+  // For npm v3 flat directory structure.
+  var jsxGettextPath = path.join(__dirname, '../../.bin/jsxgettext');
+}
 
 var jsCmd = jsxGettextPath + ' %s --keyword=_ -l JavaScript ' +
 '--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
