@@ -18,6 +18,17 @@
         }
         return msgid;
         },
+        ngettext: function (msgid, msgid_plural, nb) {
+          if (params['locale_data'] && params['locale_data'][params['domain']]) {
+          var dict = params['locale_data'][params['domain']];
+          var idx = nb == 1 ? 1 : 2;
+            if (dict[msgid] && dict[msgid].length >= 2 &&
+                dict[msgid][idx].trim() != "") {
+              return dict[msgid][idx];
+            }
+        }
+        return nb == 1 ? msgid : msgid_plural;
+        },
         // See lib/i18n.js format docs
         format: function (fmt, obj, named) {
           if (! fmt) return "";
@@ -39,6 +50,7 @@
   };
   var gt = new Gettext(params);
   window.gettext = gt.gettext.bind(gt);
+  window.ngettext = gt.ngettext.bind(gt);
   window.format = gt.format.bind(gt);
 
 }());
