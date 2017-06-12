@@ -50,7 +50,7 @@ try {
   var jsxGettextPath = path.join(__dirname, '../../.bin/jsxgettext');
 }
 
-var jsCmd = jsxGettextPath + ' %s --keyword=_ -l JavaScript ' +
+var jsCmd = jsxGettextPath + ' %s --keyword=_ -L JavaScript ' +
 '--output-dir=%s/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot ' +
 '`find %s -name \'*.js\' | grep -v node_modules | grep -v "\\.git"';
 
