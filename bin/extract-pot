@@ -48,10 +48,6 @@ try {
 	jsxGettextPath = path.join(__dirname, '../../.bin/jsxgettext');
 }
 
-let jsCmd = jsxGettextPath + ' %s --keyword=_ -L JavaScript ' +
-'--output-dir=%s/templates/LC_MESSAGES --output=messages.pot ' +
-'`find %s -name \'*.js\' | grep -v node_modules | grep -v "\\.git"';
-
 let templateCmd = jsxGettextPath + ' %s --keyword=_ -L ' + argv['template-engine'] +
 ' --output-dir=%s/templates/LC_MESSAGES --output=messages.pot ' +
 '`find %s -name \'*.%s\' | grep -v node_modules | grep -v "\\.git"';
@@ -63,38 +59,28 @@ if (argv.exclude) {
 	}
 
 	excludes.forEach(exclude => {
-		jsCmd += ' | grep -v ' + exclude;
 		templateCmd += ' | grep -v ' + exclude;
 	});
 }
 
 const templateExt = argv['template-file-ext'];
 // Close out `find ...` backtick
-jsCmd += '`';
 templateCmd += '`';
 
 // Create a new .pot file
 let dashJ = '';
 
-// Run commands
+// Run command
 async.forEachSeries(sourceDirs, dir => {
-	exec(util.format(jsCmd, dashJ, localeDir, dir), (err, stdout, stderr) => {
-		// Join existing pot file
-		dashJ = ' --join-existing';
-		// We expect an error if no gettext strings are used in client side code
-		if (err && stdout.indexOf('input argument is required') === -1) {
+	// Join existing pot file
+	dashJ = ' --join-existing';
+	console.log(util.format(templateCmd, dashJ, localeDir, dir, templateExt));
+	exec(util.format(templateCmd, dashJ, localeDir, dir, templateExt), (err, stdout, stderr) => {
+		if (err) {
 			console.error(stdout);
 			console.error(stderr);
-		} else {
-			console.log(util.format(templateCmd, dashJ, localeDir, dir, templateExt));
-			exec(util.format(templateCmd, dashJ, localeDir, dir, templateExt), (err, stdout, stderr) => {
-				if (err) {
-					console.error(stdout);
-					console.error(stderr);
-				}
-				console.log('done');
-			});
 		}
+		console.log('done');
 	});
 }, err => {
 	if (err) {
