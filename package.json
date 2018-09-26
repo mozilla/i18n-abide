@@ -16,14 +16,14 @@
     "node": ">= 0.6.2"
   },
   "dependencies": {
-    "async": "0.9.0",
+    "async": "2.6.1",
     "gobbledygook": "https://github.com/lloyd/gobbledygook/tarball/354042684056e57ca77f036989e907707a36cff2",
-    "jsxgettext": "0.7.0",
+    "jsxgettext": "0.11.0",
     "optimist": "0.6.1",
-    "plist": "1.1.0"
+    "plist": "3.0.1"
   },
   "devDependencies": {
-    "vows": "0.5.13"
+    "vows": "0.8.2"
   },
   "scripts": {
     "test": "NODE_PATH=lib node_modules/.bin/vows tests/*-tests.js --spec"
